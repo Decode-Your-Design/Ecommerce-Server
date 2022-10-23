@@ -1,12 +1,12 @@
-import UserModel from '../../modals/UserSchema'
+// import UserModel from '../../modals/UserSchema'
 // import sendDataToDatabase from '../../controllers/productController'
 import mongoose from 'mongoose'
 
-const url = "mongodb+srv://gourav:gourav@123@reactflipkartclone.ykned.mongodb.net/?retryWrites=true&w=majority"
+const url = "mongodb+srv://gourav:gourav.ranka@vigorous-motors.oh2p2pq.mongodb.net/vigorous-motors?retryWrites=true&w=majority"
 
 const connection = async()=>{
     try{
-   await mongoose.connect('mongodb+srv://gourav:gouravranka@reactflipkartclone.ykned.mongodb.net/ecommerce?retryWrites=true&w=majority',
+   await mongoose.connect(url,
 {
 //   useNewUrlParser: true,
 //   useFindAndModify: false,
@@ -19,7 +19,7 @@ const connection = async()=>{
 
 }
     catch(err){
-console.log("this is error message",)
+console.log("this is error message",err.message)
     }
     
 }

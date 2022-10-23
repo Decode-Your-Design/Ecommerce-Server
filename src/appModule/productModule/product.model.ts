@@ -22,9 +22,6 @@ export class Product {
   price: number;
 
   @prop()
-  rating: number;
-
-  @prop()
   offerPrice: number;
 
   @prop()

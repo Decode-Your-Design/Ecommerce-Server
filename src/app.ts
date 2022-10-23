@@ -10,7 +10,8 @@ import connection from "./database/database";
 
   const app: Application = express();
 
-  app.use(cors({ origin: "*" }));
+  app.use(cors());
+  app.use(express.urlencoded({extended:false}));
   app.use(express.json({ limit: "5000mb" }));
   app.use(
     express.urlencoded({
@@ -20,10 +21,13 @@ import connection from "./database/database";
     })
   );
 
-  connection()
-  app.use("/api", mainRoutes);
+  // connecting to database 
+  connection();
 
-  const port = process.env.PORT || 7200;
+  
+  app.use("/", mainRoutes);
+
+  const port = process.env.PORT || 8000;
   try {
     app.listen(port, () =>
       console.log(`API server started at http://localhost:${port}`)
@@ -33,32 +37,3 @@ import connection from "./database/database";
   }
 })();
 
-// const app = express();
-// app.use(cors())
-// // below line is important for recieving form  encoded data
-// app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-// const port = 8000;
-
-// // get product data
-// // app.get('/getAllProducts',getAllProducts)
-// app.use("/api", mainRoutes);
-
-// connection();
-
-// const server = app.listen(port, () => {
-//     console.log("server started on ", port);
-// })
-
-// // add a user
-// app.post('/add_user', (req: Request, res: Response) => {
-//     const newData = new UserModel({
-//         name: req.body.name
-//     })
-//     var filepath = 'data.txt';
-//     fs.writeFile(filepath, req.body.name, (err) => {
-//         if (err)
-//             console.log("error came")
-//         else
-//             console.log("data saved")
-//     })
-// })
