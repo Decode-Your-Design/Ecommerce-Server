@@ -2,29 +2,48 @@ import { vendorModal } from "./userModal";
 import { Request } from "express";
 import { Response } from "express";
 
-
-
 export const vendorSignup = async (req: Request, res: Response) => {
-  const { email, phone } = req.body;
-  vendorModal.find({ email: email, phone: phone }, function (err, res) {
-    if (res.length > 0) {
-      console.log("already exist");
+  try {
+    const { email, phone } = req.body;
+    const user = await vendorModal.findOne({
+      $or: [{ email: email }, { phone: phone }],
+    });
+    if (user) {
+      return res.status(200).json({
+        result: user,
+        message:
+          user.email == email
+            ? "Email already exist "
+            : user.phone == req.body.phone
+            ? "phone number already exist"
+            : "",
+        success: false,
+      });
     } else {
-      console.log("new user");
+      await vendorModal.create({ ...req.body });
+      return res.status(200).send({
+        message: "Vendor added successfully",
+        success: true,
+        result: user,
+      });
     }
-  });
+  } catch (e) {
+    return res.status(200).json({
+      success: false,
+      error: e,
+    });
+  }
 };
 
 export const verifyOtp = async (req: Request, response: Response) => {
-    try {
-      const data = new vendorModal(req.body);
-      await data.save();
-    } catch (error) {
-      console.log("error calling vendor sign  up api", error.message);
-    }
-  };
+  try {
+    const data = new vendorModal(req.body);
+    await data.save();
+  } catch (error) {
+    console.log("error calling vendor sign  up api", error.message);
+  }
+};
 
-  
 export const vendorLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   vendorModal.find({ email: email, password: password }, function (err, res) {
@@ -35,9 +54,6 @@ export const vendorLogin = async (req: Request, res: Response) => {
     }
   });
 };
-
-
-
 
 export const vendorAddProduct = async (req: Request, res: Response) => {
   const { vendorId } = req.params;
@@ -52,7 +68,6 @@ export const vendorAddProduct = async (req: Request, res: Response) => {
   }
 };
 
-
 export const getVendors = async (req: Request, res: Response) => {
   try {
     const data = await vendorModal.find({});
@@ -60,7 +75,6 @@ export const getVendors = async (req: Request, res: Response) => {
     console.log("error calling vendor sign  up api", error.message);
   }
 };
-
 
 export const vendorGetProducts = async (req: Request, res: Response) => {
   const { vendorId } = req.params;
