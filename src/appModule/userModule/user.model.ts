@@ -7,7 +7,7 @@ export class Vendor {
   @prop()
   name: String;
   @prop()
-  email:String
+  email:String;
   @prop()
   password:String;
   @prop()
@@ -17,6 +17,6 @@ export class Vendor {
 
 }
 
-export const vendorModal = getModelForClass(Vendor, {
+export const vendorModel = getModelForClass(Vendor, {
   schemaOptions: { timestamps: true },
 });
