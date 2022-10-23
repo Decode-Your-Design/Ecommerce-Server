@@ -1,8 +1,7 @@
-import { vendorModal } from "./userModal";
+import { vendorModal } from "./user.model";
+import { ProductModel } from "../productModule/product.model";
 import { Request } from "express";
 import { Response } from "express";
-
-
 
 export const vendorSignup = async (req: Request, res: Response) => {
   const { email, phone } = req.body;
@@ -16,15 +15,14 @@ export const vendorSignup = async (req: Request, res: Response) => {
 };
 
 export const verifyOtp = async (req: Request, response: Response) => {
-    try {
-      const data = new vendorModal(req.body);
-      await data.save();
-    } catch (error) {
-      console.log("error calling vendor sign  up api", error.message);
-    }
-  };
+  try {
+    const data = new vendorModal(req.body);
+    await data.save();
+  } catch (error) {
+    console.log("error calling vendor sign  up api", error.message);
+  }
+};
 
-  
 export const vendorLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   vendorModal.find({ email: email, password: password }, function (err, res) {
@@ -36,22 +34,20 @@ export const vendorLogin = async (req: Request, res: Response) => {
   });
 };
 
-
-
-
 export const vendorAddProduct = async (req: Request, res: Response) => {
   const { vendorId } = req.params;
   const query = { _id: vendorId };
   try {
     const product = {
-      name: "test product ",
+      name: "test product2 ",
     };
     await vendorModal.updateOne(query, { $push: { products: product } });
+
+    
   } catch (error) {
     console.log("error calling vendor sign  up api", error.message);
   }
 };
-
 
 export const getVendors = async (req: Request, res: Response) => {
   try {
@@ -60,7 +56,6 @@ export const getVendors = async (req: Request, res: Response) => {
     console.log("error calling vendor sign  up api", error.message);
   }
 };
-
 
 export const vendorGetProducts = async (req: Request, res: Response) => {
   const { vendorId } = req.params;
