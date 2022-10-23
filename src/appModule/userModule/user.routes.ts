@@ -1,10 +1,10 @@
 import express, { Router } from "express";
 // import { getAllProducts } from "./product.controller";
-import { vendorSignup } from "./userController";
-import { vendorAddProduct } from "./userController";
-import { getVendors } from "./userController";
-import { vendorGetProducts } from "./userController";
-import { vendorLogin } from "./userController";
+import { vendorSignup } from "./user.controller";
+import { vendorAddProduct } from "./user.controller";
+import { getVendors } from "./user.controller";
+import { vendorGetProducts } from "./user.controller";
+import { vendorLogin } from "./user.controller";
 // 
 export const userRoutes: Router = express.Router();
 
