@@ -2,19 +2,18 @@ import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 
 export class Vendor {
-//   readonly _id: ObjectId;
-//   readonly createdAt: Date;
+  //   readonly _id: ObjectId;
+  //   readonly createdAt: Date;
   @prop()
   name: String;
   @prop()
-  email:String;
+  email: String;
   @prop()
-  password:String;
+  password: String;
   @prop()
   phone: Number;
   @prop()
   products: Array<Object>;
-
 }
 
 export const vendorModel = getModelForClass(Vendor, {
