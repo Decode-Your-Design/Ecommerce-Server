@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import express, { Application } from "express";
 import { mongoose } from "@typegoose/typegoose";
 import cors from "cors";
+import "dotenv/config";
 
 import connection from "./database/database";
 
@@ -25,7 +26,7 @@ import connection from "./database/database";
   connection();
 
   
-  app.use("/", mainRoutes);
+  app.use("/api", mainRoutes);
 
   const port = process.env.PORT || 8000;
   try {

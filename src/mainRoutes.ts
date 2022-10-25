@@ -1,15 +1,18 @@
 import express, { Router } from "express";
+import { AuthRoutes } from "./appModule/authModule/auth.routes";
 import { ProductRoutes } from "./appModule/productModule/product.routes";
 import { userRoutes } from "./appModule/userModule/user.routes";
 const app = express();
 
-// vendor module routes
 
-app.use("/user", userRoutes);
 
 // *********************************** Admin Module Routes ***********************************
 
-// api/adminAuth
+// api/auth
+app.use("/auth", AuthRoutes);
+
+// api/users
+app.use("/users", userRoutes);
 
 // *********************************** App Module Routes ***********************************
 

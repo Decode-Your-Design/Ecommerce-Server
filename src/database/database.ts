@@ -2,7 +2,7 @@
 // import sendDataToDatabase from '../../controllers/productController'
 import mongoose from 'mongoose'
 
-const url = "mongodb+srv://gourav:gourav.ranka@vigorous-motors.oh2p2pq.mongodb.net/vigorous-motors?retryWrites=true&w=majority"
+const url = "mongodb+srv://maxSingh:a0rOYfSLXXdTkoin@cluster0.l34ugc6.mongodb.net/Ecommerce_Project?retryWrites=true&w=majority"
 
 const connection = async()=>{
     try{

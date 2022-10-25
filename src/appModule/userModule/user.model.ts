@@ -1,21 +1,38 @@
 import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 
-export class Vendor {
-  //   readonly _id: ObjectId;
-  //   readonly createdAt: Date;
+export enum UserType {
+  ADMIN = "Admin",
+  VENDOR = "Vendor",
+}
+
+export class User {
+  readonly _id: ObjectId;
+
+  readonly createdAt: Date;
+
   @prop()
-  name: String;
+  fullName: string;
+
   @prop()
-  email: String;
+  email?: string;
+
+  @prop({ required: true })
+  phone: string;
+
+  @prop({})
+  empAddress: String;
+
   @prop()
-  password: String;
-  @prop()
-  phone: Number;
+  accessControlList: [string];
+
+  @prop({ enum: UserType })
+  UserType: UserType;
+
   @prop()
   products: Array<Object>;
 }
 
-export const vendorModel = getModelForClass(Vendor, {
+export const UserModel = getModelForClass(User, {
   schemaOptions: { timestamps: true },
 });
