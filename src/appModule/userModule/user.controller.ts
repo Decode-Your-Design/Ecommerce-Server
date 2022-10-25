@@ -1,23 +1,18 @@
 import { UserModel } from "./user.model";
 import { Request } from "express";
 import { Response } from "express";
-
-
+import { ProductModel } from "../productModule/product.model";
 
 export const addUser = async (req: any, res: Response) => {
   try {
-    
     const employee = await UserModel.findOne({
-      $or: [
-        { email: req.body.email },
-        { phone: req.body.phone },
-      ],
+      $or: [{ email: req.body.email }, { phone: req.body.phone }],
     });
     console.log(employee);
     if (employee) {
       return res.status(200).send({
         message:
-             employee.email == req.body.email
+          employee.email == req.body.email
             ? "Email already exist "
             : employee.phone == req.body.phone
             ? "phone number already exist"
@@ -43,8 +38,6 @@ export const addUser = async (req: any, res: Response) => {
     });
   }
 };
-
-
 
 // export const vendorSignup = async (req: Request, res: Response) => {
 //   try {

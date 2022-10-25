@@ -1,8 +1,7 @@
 import { NextFunction, request, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { UserModel } from "../../appModule/userModule/user.model";
-// import { AdminAuthUserModel } from "../../adminModule/adminAuth/adminAuth";
-// import { UserRole } from "./../../appModule/chatModule/message.model";
+
 
 export const verifyJwtToken = async (
   req: any,
