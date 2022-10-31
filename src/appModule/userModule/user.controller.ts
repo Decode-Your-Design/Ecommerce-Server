@@ -39,6 +39,9 @@ export const addUser = async (req: any, res: Response) => {
   }
 };
 
+
+
+
 // export const vendorSignup = async (req: Request, res: Response) => {
 //   try {
 //     const { email, phone } = req.body;
