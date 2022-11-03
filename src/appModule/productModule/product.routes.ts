@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { verifyJwtToken } from "src/utils/middleware/verify-jwt-token";
+import { verifyJwtToken } from "../../utils/middleware/verify-jwt-token";
 import multer from "../../utils/middleware/upload";
 
 import {
@@ -16,10 +16,10 @@ export const ProductRoutes: Router = express.Router();
 ProductRoutes.post("/addProduct", verifyJwtToken, addProduct);
 
 // /api/product/updateProductDetails
-ProductRoutes.post("/updateProductDetails", updateProductDetails);
+ProductRoutes.post("/updateProductDetails/:productId",verifyJwtToken, updateProductDetails);
 
 // /api/product/removeProduct
-ProductRoutes.post("/removeProduct/:productId", removeProduct);
+ProductRoutes.post("/removeProduct/:productId",verifyJwtToken, removeProduct);
 
 // ProductRoutes.get("/getAllProducts", getAllProducts);
 // ProductRoutes.get("/getProductById/:productId", getProductById);

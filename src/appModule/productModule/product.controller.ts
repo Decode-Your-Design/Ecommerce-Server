@@ -77,8 +77,8 @@ export const addProduct = async (req: any, res: Response) => {
 
 export const updateProductDetails = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
-    const product = await ProductModel.findByIdAndUpdate(id, { ...req.body });
+    const { productId } = req.params;
+    const product = await ProductModel.findByIdAndUpdate(productId, { ...req.body });
     if (product) {
       return res.status(200).json({
         message: "Product details updated  successfully",
