@@ -19,7 +19,7 @@ ProductRoutes.post("/addProduct", verifyJwtToken, addProduct);
 ProductRoutes.post("/updateProductDetails", updateProductDetails);
 
 // /api/product/removeProduct
-ProductRoutes.post("/removeProduct", removeProduct);
+ProductRoutes.post("/removeProduct/:productId", removeProduct);
 
 // ProductRoutes.get("/getAllProducts", getAllProducts);
 // ProductRoutes.get("/getProductById/:productId", getProductById);
