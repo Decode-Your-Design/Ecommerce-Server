@@ -1,9 +1,10 @@
 import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 
-export enum UserType {
+export enum userType {
   ADMIN = "Admin",
   VENDOR = "Vendor",
+  CUSTOMER = "Customer",
 }
 
 export class User {
@@ -20,17 +21,17 @@ export class User {
   @prop({ required: true })
   phone: string;
 
+  @prop({ required: true })
+  password: string;
+
+  @prop({ required: true })
+  shopName: string;
+
   @prop({})
-  empAddress: String;
+  address: string;
 
-  @prop()
-  accessControlList: [string];
-
-  @prop({ enum: UserType })
-  UserType: UserType;
-
-  @prop()
-  products: Array<Object>;
+  @prop({ enum: userType })
+  userType: userType;
 }
 
 export const UserModel = getModelForClass(User, {

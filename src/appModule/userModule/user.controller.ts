@@ -5,8 +5,44 @@ import { ProductModel } from "../productModule/product.model";
 
 export const addUser = async (req: any, res: Response) => {
   try {
+    const employee = await UserModel.findOne({ phone: req.body.phone });
+    console.log(employee);
+    if (employee) {
+      return res.status(200).send({
+        message:
+          employee.phone == req.body.phone ? "phone number already exist" : "",
+        success: false,
+        result: employee,
+      });
+    } else {
+      const employee = await UserModel.create({ ...req.body });
+      if (employee) {
+        return res.status(200).send({
+          message: "Employee added successfully",
+          success: true,
+          result: employee,
+        });
+      } else {
+        return res.status(200).send({
+          message: "Failed to add employee",
+          success: false,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(200).send({
+      success: false,
+      message: "Failed to create the service",
+      error: error,
+    });
+  }
+};
+
+export const signup = async (req: any, res: Response) => {
+  try {
     const employee = await UserModel.findOne({
-      $or: [{ email: req.body.email }, { phone: req.body.phone }],
+      phone: req.body.phone,
     });
     console.log(employee);
     if (employee) {
@@ -38,9 +74,6 @@ export const addUser = async (req: any, res: Response) => {
     });
   }
 };
-
-
-
 
 // export const vendorSignup = async (req: Request, res: Response) => {
 //   try {

@@ -1,24 +1,62 @@
 import { Response, Request, NextFunction } from "express";
-import { UserType, UserModel } from "../userModule/user.model";
+import { userType, UserModel } from "../userModule/user.model";
 import { sign } from "jsonwebtoken";
-export const isMobileNoExist = async (req: Request, res: Response) => {
+
+export const signUp = async (req: Request, res: Response) => {
   try {
     const employeeExist = await UserModel.findOne({
-      phone: req.body.mobileNo,
-      // employeeType: { $ne: EmployeeType.VENDOR }
+      phone: req.body.phone,
     });
-    console.log(employeeExist, req.body);
+
     if (employeeExist) {
       return res.status(200).send({
-        message: "Mobile Number found",
+        message: "User already exist",
+        success: true,
+        result: employeeExist,
+      });
+    } else {
+      const employee = await UserModel.create({ ...req.body });
+      if (employee) {
+        return res.status(200).send({
+          message: "User added successfully",
+          success: true,
+          result: employeeExist,
+        });
+      } else {
+        return res.status(400).send({
+          message: "Failed to add user",
+          success: true,
+          result: employeeExist,
+        });
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(200).send({
+      dsuccess: false,
+      message: "Failed",
+      error: err,
+    });
+  }
+};
+export const login = async (req: Request, res: Response) => {
+  try {
+    const employeeExist = await UserModel.findOne({
+      phone: req.body.phone,
+    });
+
+    if (employeeExist) {
+      return res.status(200).send({
+        message: "User logged in  successfully",
         success: true,
         result: employeeExist,
         accessToken: await createAccessTokenForAdmin(employeeExist._id),
       });
     } else {
-      return res.status(200).send({
-        success: false,
-        message: "Mobile Number  not found",
+      return res.status(400).send({
+        message: "Failed to login",
+        success: true,
+        result: employeeExist,
       });
     }
   } catch (err) {
@@ -30,7 +68,6 @@ export const isMobileNoExist = async (req: Request, res: Response) => {
     });
   }
 };
-
 const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   let token = sign(
     { userId: userId, type: "ADMIN" },
@@ -41,3 +78,5 @@ const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   );
   return token;
 };
+
+// accessToken: await createAccessTokenForAdmin(employeeExist._id),

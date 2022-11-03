@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import multer from "../../utils/middleware/upload";
 
 import {
   getAllProducts,
@@ -12,5 +13,5 @@ export const ProductRoutes: Router = express.Router();
 // /api/product/getAllProducts
 ProductRoutes.get("/getAllProducts", getAllProducts);
 ProductRoutes.get("/getProductById/:productId", getProductById);
-ProductRoutes.post("/addProduct", addProduct);
+ProductRoutes.post("/addProduct", multer.single("image"), addProduct);
 ProductRoutes.post("/updateProductDetails", updateProductDetails);

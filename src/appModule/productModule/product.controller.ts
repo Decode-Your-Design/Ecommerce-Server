@@ -1,4 +1,5 @@
-import { Response, Request } from "express";
+import { Response, Request, NextFunction } from "express";
+const fs = require("fs");
 import { ProductModel } from "./product.model";
 
 export const getAllProducts = async (req: Request, res: Response) => {
@@ -46,9 +47,13 @@ export const getProductById = async (req: Request, res: Response) => {
   }
 };
 
-export const addProduct = async (req: Request, res: Response) => {
+export const addProduct = async (req: any, res: Response) => {
   try {
-    const product = await ProductModel.create({ ...req.body });
+    // const newPhoto = { ...req.body, imagePath: req.file.path };
+    const product = await ProductModel.create({
+      imagePath: req.file.path,
+    });
+    console.log(req.body)
     if (product) {
       return res.status(200).json({
         message: "Product added successfully",
@@ -61,6 +66,20 @@ export const addProduct = async (req: Request, res: Response) => {
         success: false,
       });
     }
+
+    // const product = await ProductModel.create({ ...req.body });
+    // if (product) {
+    //   return res.status(200).json({
+    //     message: "Product added successfully",
+    //     result: product,
+    //     success: true,
+    //   });
+    // } else {
+    //   return res.status(500).json({
+    //     message: "Failed to add the product",
+    //     success: false,
+    //   });
+    // }
   } catch (e) {
     return res.status(200).json({
       message: "Failed to add the product",

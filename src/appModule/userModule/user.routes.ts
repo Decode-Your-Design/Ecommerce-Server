@@ -6,7 +6,7 @@ export const userRoutes: Router = express.Router();
 // /api/product/getAllProducts
 
 // /api/users/addUser
-userRoutes.post("/addUser",verifyJwtToken,addUser)
+userRoutes.post("/addUser",addUser)
 
 
 // userRoutes.post("/vendor/signup", vendorSignup);

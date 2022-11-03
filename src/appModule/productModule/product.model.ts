@@ -26,6 +26,9 @@ export class Product {
 
   @prop()
   url: string;
+
+  @prop({required: true })
+  imagePath: String
 }
 
 export const ProductModel = getModelForClass(Product, {
