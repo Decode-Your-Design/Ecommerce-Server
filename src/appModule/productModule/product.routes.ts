@@ -7,12 +7,19 @@ import {
   getProductById,
   addProduct,
   updateProductDetails,
+  removeProduct,
 } from "./product.controller";
 
 export const ProductRoutes: Router = express.Router();
 
 // /api/product/addProduct
 ProductRoutes.post("/addProduct", verifyJwtToken, addProduct);
+
+// /api/product/updateProductDetails
+ProductRoutes.post("/updateProductDetails", updateProductDetails);
+
+// /api/product/removeProduct
+ProductRoutes.post("/removeProduct", removeProduct);
 
 // ProductRoutes.get("/getAllProducts", getAllProducts);
 // ProductRoutes.get("/getProductById/:productId", getProductById);

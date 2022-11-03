@@ -51,7 +51,7 @@ export const addProduct = async (req: any, res: Response) => {
   try {
     const product = await ProductModel.create({
       ...req.body,
-      vendor: req.body._id,
+      vendor: req.body.user,
     });
     console.log(req.body);
     if (product) {
@@ -77,8 +77,8 @@ export const addProduct = async (req: any, res: Response) => {
 
 export const updateProductDetails = async (req: Request, res: Response) => {
   try {
-    const { id, name } = req.body;
-    const product = await ProductModel.findByIdAndUpdate(id, { name: name });
+    const { id } = req.body;
+    const product = await ProductModel.findByIdAndUpdate(id, { ...req.body });
     if (product) {
       return res.status(200).json({
         message: "Product details updated  successfully",
@@ -94,6 +94,31 @@ export const updateProductDetails = async (req: Request, res: Response) => {
   } catch (e) {
     return res.status(200).json({
       message: "Failed to update the product details",
+      success: false,
+      error: e,
+    });
+  }
+};
+
+export const removeProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    const product = await ProductModel.findByIdAndDelete(id, {});
+    if (product) {
+      return res.status(200).json({
+        message: "Product  removed  successfully",
+        result: product,
+        success: true,
+      });
+    } else {
+      return res.status(500).json({
+        message: "Failed to remove product ",
+        success: false,
+      });
+    }
+  } catch (e) {
+    return res.status(200).json({
+      message: "Failed",
       success: false,
       error: e,
     });
