@@ -49,11 +49,11 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const addProduct = async (req: any, res: Response) => {
   try {
-    // const newPhoto = { ...req.body, imagePath: req.file.path };
     const product = await ProductModel.create({
-      imagePath: req.file.path,
+      ...req.body,
+      vendor: req.body._id,
     });
-    console.log(req.body)
+    console.log(req.body);
     if (product) {
       return res.status(200).json({
         message: "Product added successfully",
@@ -66,20 +66,6 @@ export const addProduct = async (req: any, res: Response) => {
         success: false,
       });
     }
-
-    // const product = await ProductModel.create({ ...req.body });
-    // if (product) {
-    //   return res.status(200).json({
-    //     message: "Product added successfully",
-    //     result: product,
-    //     success: true,
-    //   });
-    // } else {
-    //   return res.status(500).json({
-    //     message: "Failed to add the product",
-    //     success: false,
-    //   });
-    // }
   } catch (e) {
     return res.status(200).json({
       message: "Failed to add the product",

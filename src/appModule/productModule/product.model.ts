@@ -1,5 +1,6 @@
 import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
+import { User } from "../../appModule/userModule/user.model";
 
 export class Product {
   readonly _id: ObjectId;
@@ -8,6 +9,9 @@ export class Product {
 
   @prop()
   name: string;
+
+  @prop({ ref: () => User })
+  vendor: Ref<User>;
 
   @prop()
   title: string;
@@ -27,8 +31,8 @@ export class Product {
   @prop()
   url: string;
 
-  @prop({required: true })
-  imagePath: String
+  @prop({ required: true })
+  imagePath: string;
 }
 
 export const ProductModel = getModelForClass(Product, {

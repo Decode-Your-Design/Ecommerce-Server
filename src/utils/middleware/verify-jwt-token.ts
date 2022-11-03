@@ -2,7 +2,6 @@ import { NextFunction, request, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { UserModel } from "../../appModule/userModule/user.model";
 
-
 export const verifyJwtToken = async (
   req: any,
   res: Response,
@@ -17,7 +16,7 @@ export const verifyJwtToken = async (
       const user = await UserModel.findById(payload.userId).exec();
       if (user) {
         req.body.user = user._id;
-        req.body.accessUserRole = user.UserType;
+        req.body.accessUserRole = user.userType;
 
         return next();
       } else {
