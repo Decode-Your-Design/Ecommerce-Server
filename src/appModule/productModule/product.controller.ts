@@ -1,4 +1,5 @@
 import { Response, Request, NextFunction } from "express";
+import { rmSync } from "fs";
 const fs = require("fs");
 import { ProductModel } from "./product.model";
 
@@ -124,3 +125,26 @@ export const removeProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+export const getProductByType = async(req:Request,res:Response)=>{
+  const {vehicleType} = req.params;
+  console.log(req.params)
+  try{
+    const data = await ProductModel.find({vehicleType:vehicleType});
+      return res.status(200).json({
+        success:true,
+        message:"product fetched successfully",
+        result:data
+      })
+    
+  }
+  catch(error){
+    return res.status(500).json({
+      success:false,
+      message:"Internal server error",
+
+    })
+  }
+  
+}

@@ -2,10 +2,10 @@ import { getModelForClass, prop, Ref } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
 import { User } from "../../appModule/userModule/user.model";
 
-export enum productType {
-  SCOOTY = "Scooty",
-  CAR = "Car",
-  BIKE = "Bike",
+export enum vehicleType {
+  SCOOTY = "scooty",
+  CAR = "car",
+  BIKE = "bike",
 }
 
 export class Product {
@@ -22,8 +22,8 @@ export class Product {
   @prop()
   title: string;
 
-  @prop({ enum: productType })
-  productType: productType;
+  @prop({ enum: vehicleType })
+  vehicleType: vehicleType;
 
   @prop()
   shortDesc: string;
