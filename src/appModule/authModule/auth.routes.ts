@@ -6,3 +6,6 @@ import { signUp } from "./auth.controller";
 
 // /api/auth/signUp
 AuthRoutes.post("/signUp", signUp);
+
+// /api/auth/login
+AuthRoutes.post("/login", signUp);
