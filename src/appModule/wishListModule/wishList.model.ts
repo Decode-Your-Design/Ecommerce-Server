@@ -12,7 +12,7 @@ export class WishList extends Product {
   userId: Ref<User>;
 
   @prop({ ref: () => Product })
-  productId: Ref<Product>;
+  product: Ref<Product>;
 }
 
 export const WishListModel = getModelForClass(WishList, {

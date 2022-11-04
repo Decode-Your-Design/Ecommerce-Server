@@ -2,7 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { ProductModel } from "../productModule/product.model";
 import { WishListModel } from "./wishList.model";
 
-export const addProduct = async (req: any, res: Response) => {
+export const addProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const product = await ProductModel.findOne({ _id: productId });
@@ -34,15 +34,15 @@ export const addProduct = async (req: any, res: Response) => {
   }
 };
 
-export const getProduct = async (req: any, res: Response) => {
+export const getProduct = async (req: Request, res: Response) => {
   try {
-    const addedProduct = await await WishListModel.find({
+    const product = await WishListModel.find({
       user: req.body.user,
-    }).populate("product");
-    if (addedProduct) {
+    }).populate('product');
+    if (product) {
       return res.status(200).json({
         message: "Product fetched successfully",
-        result: addedProduct,
+        result: product,
         success: true,
       });
     } else {
@@ -53,7 +53,7 @@ export const getProduct = async (req: any, res: Response) => {
     }
   } catch (e) {
     return res.status(200).json({
-      message: "Failed to add the product",
+      message: "Failed",
       success: false,
       error: e,
     });
