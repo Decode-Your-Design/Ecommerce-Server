@@ -35,6 +35,9 @@ export class User {
 
   @prop({ enum: userType })
   userType: userType;
+
+  @prop({default: false})
+  isActive:boolean
 }
 
 export const UserModel = getModelForClass(User, {
