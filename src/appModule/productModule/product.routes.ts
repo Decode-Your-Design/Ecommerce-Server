@@ -21,6 +21,7 @@ ProductRoutes.post("/updateProductDetails/:productId",verifyJwtToken, updateProd
 
 // /api/product/removeProduct
 ProductRoutes.post("/removeProduct/:productId",verifyJwtToken, removeProduct);
+
 ProductRoutes.get("/getProductByType/:vehicleType",getProductByType);
 
 // ProductRoutes.get("/getAllProducts", getAllProducts);
