@@ -38,7 +38,7 @@ export const getProduct = async (req: Request, res: Response) => {
   try {
     const product = await WishListModel.find({
       user: req.body.user,
-    }).populate('product');
+    }).populate("product");
     if (product) {
       return res.status(200).json({
         message: "Product fetched successfully",
@@ -48,6 +48,33 @@ export const getProduct = async (req: Request, res: Response) => {
     } else {
       return res.status(400).json({
         message: "Failed to fetch product ",
+        success: false,
+      });
+    }
+  } catch (e) {
+    return res.status(200).json({
+      message: "Failed",
+      success: false,
+      error: e,
+    });
+  }
+};
+
+export const removeProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const product = await WishListModel.findByIdAndUpdate(productId, {
+      isActive: true,
+    }).populate("product");
+    if (product) {
+      return res.status(200).json({
+        message: "Product removed successfully",
+        result: product,
+        success: true,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Failed to remove product ",
         success: false,
       });
     }

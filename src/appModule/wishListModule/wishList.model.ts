@@ -13,6 +13,9 @@ export class WishList extends Product {
 
   @prop({ ref: () => Product })
   product: Ref<Product>;
+
+  @prop({default: false})
+  isActive:boolean
 }
 
 export const WishListModel = getModelForClass(WishList, {
