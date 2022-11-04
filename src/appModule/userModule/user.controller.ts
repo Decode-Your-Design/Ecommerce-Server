@@ -39,42 +39,62 @@ export const addUser = async (req: any, res: Response) => {
   }
 };
 
-export const signup = async (req: any, res: Response) => {
+// export const signup = async (req: any, res: Response) => {
+//   try {
+//     const employee = await UserModel.findOne({
+//       phone: req.body.phone,
+//     });
+//     console.log(employee);
+//     if (employee) {
+//       return res.status(200).send({
+//         message:
+//           employee.email == req.body.email
+//             ? "Email already exist "
+//             : employee.phone == req.body.phone
+//             ? "phone number already exist"
+//             : "",
+//         success: false,
+//         result: employee,
+//       });
+//     } else {
+//       // req.body.accessControlList = JSON.parse(req.body.accessControlList);
+//       await UserModel.create({ ...req.body });
+//       return res.status(200).send({
+//         message: "Employee added successfully",
+//         success: true,
+//         result: employee,
+//       });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(200).send({
+//       success: false,
+//       message: "Failed to create the service",
+//       error: error,
+//     });
+//   }
+// };
+
+export const addToWishlist = async (req: any, res: Response) => {
+  const { productId } = req.params;
   try {
-    const employee = await UserModel.findOne({
-      phone: req.body.phone,
+    // let r;
+    const productData = await ProductModel.findOne({
+      _id: "636400830fc1b9d1cd7e1f98",
     });
-    console.log(employee);
-    if (employee) {
-      return res.status(200).send({
-        message:
-          employee.email == req.body.email
-            ? "Email already exist "
-            : employee.phone == req.body.phone
-            ? "phone number already exist"
-            : "",
-        success: false,
-        result: employee,
-      });
-    } else {
-      // req.body.accessControlList = JSON.parse(req.body.accessControlList);
-      await UserModel.create({ ...req.body });
-      return res.status(200).send({
-        message: "Employee added successfully",
-        success: true,
-        result: employee,
-      });
-    }
+    console.log("yhid",productData)
+    const userDetail = await UserModel.findByIdAndUpdate(req.body.user, {
+    $push:{ wishlist: productData},
+    });
+   
+    console.log(userDetail);
   } catch (error) {
-    console.log(error);
-    return res.status(200).send({
+    return res.status(500).json({
       success: false,
-      message: "Failed to create the service",
-      error: error,
+      message: "Internal server error",
     });
   }
 };
-
 // export const vendorSignup = async (req: Request, res: Response) => {
 //   try {
 //     const { email, phone } = req.body;

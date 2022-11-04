@@ -9,10 +9,10 @@ export class WishList extends Product {
   readonly createdAt: Date;
 
   @prop({ ref: () => User })
-  user: Ref<User>;
+  userId: Ref<User>;
 
   @prop({ ref: () => Product })
-  product: Ref<Product>;
+  productId: Ref<Product>;
 }
 
 export const WishListModel = getModelForClass(WishList, {

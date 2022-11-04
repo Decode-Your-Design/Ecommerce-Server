@@ -3,10 +3,10 @@ import { verifyJwtToken } from "../../utils/middleware/verify-jwt-token";
 
 import {addProduct, getProduct} from "./wishList.controller";
 
-export const WishListRoutes: Router = express.Router();
+export const wishListRoutes: Router = express.Router();
 
 // /api/wishList/addProduct
-WishListRoutes.post("/addProduct", verifyJwtToken, addProduct);
+wishListRoutes.post("/addProduct/:productId", verifyJwtToken, addProduct);
 
 // /api/wishList/getProduct
-WishListRoutes.get("/getProduct", verifyJwtToken, getProduct);
+wishListRoutes.get("/getProduct", verifyJwtToken, getProduct);

@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import { AuthRoutes } from "./appModule/authModule/auth.routes";
 import { ProductRoutes } from "./appModule/productModule/product.routes";
 import { userRoutes } from "./appModule/userModule/user.routes";
-import { WishListRoutes } from "./appModule/wishListModule/wishList.routes";
+import {wishListRoutes } from "./appModule/wishListModule/wishList.routes";
 const app = express();
 
 
@@ -21,6 +21,6 @@ app.use("/users", userRoutes);
 app.use("/product", ProductRoutes);
 
 // /api/wishList
-app.use("/wishList", WishListRoutes);
+app.use("/wishList", wishListRoutes);
 
 module.exports = app;
