@@ -40,7 +40,9 @@ export class Product {
   @prop()
   url: string;
 
-  @prop({ required: true })
+
+
+  // @prop({ required: true })
   imagePath: string;
 }
 

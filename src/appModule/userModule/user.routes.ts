@@ -1,12 +1,13 @@
 import express, { Router } from "express";
 import { verifyJwtToken } from "../../utils/middleware/verify-jwt-token";
-import { addUser } from "./user.controller";
+import { addUser,addToWishlist } from "./user.controller";
 export const userRoutes: Router = express.Router();
 
 // /api/product/getAllProducts
 
 // /api/users/addUser
 userRoutes.post("/addUser",addUser)
+userRoutes.post("/addToWishList/:productId",verifyJwtToken,addToWishlist)
 
 
 // userRoutes.post("/vendor/signup", vendorSignup);
