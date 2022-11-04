@@ -4,8 +4,8 @@ import { WishListModel } from "./wishList.model";
 
 export const addProduct = async (req: any, res: Response) => {
   try {
-    const { _id } = req.body;
-    const product = await ProductModel.findOne({ _id: _id });
+    const { productId } = req.params;
+    const product = await ProductModel.findOne({ _id: productId });
     console.log(product);
     const addedProduct = await (
       await WishListModel.create({
