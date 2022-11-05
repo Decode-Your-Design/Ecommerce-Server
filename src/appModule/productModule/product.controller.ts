@@ -31,7 +31,7 @@ export const getProductById = async (req: Request, res: Response) => {
     const product = await ProductModel.find({ _id: productId });
     if (product) {
       return res.status(200).json({
-        result: product,
+        result: product[0],
         success: true,
         status: 200,
       });
@@ -132,6 +132,7 @@ export const getProductByType = async(req:Request,res:Response)=>{
   console.log(req.params)
   try{
     const data = await ProductModel.find({vehicleType:vehicleType});
+    console.log("this is data",data)
       return res.status(200).json({
         success:true,
         message:"product fetched successfully",

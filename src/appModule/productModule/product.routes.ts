@@ -24,7 +24,7 @@ ProductRoutes.post("/removeProduct/:productId",verifyJwtToken, removeProduct);
 
 ProductRoutes.get("/getProductByType/:vehicleType",getProductByType);
 
-// ProductRoutes.get("/getAllProducts", getAllProducts);
-// ProductRoutes.get("/getProductById/:productId", getProductById);
+ProductRoutes.get("/getAllProducts", getAllProducts);
+ProductRoutes.get("/getProductById/:productId", getProductById);
 // ProductRoutes.post("/addProduct", multer.single("image"), addProduct);
 // ProductRoutes.post("/updateProductDetails", updateProductDetails);

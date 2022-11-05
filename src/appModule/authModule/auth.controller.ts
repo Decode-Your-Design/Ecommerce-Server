@@ -9,9 +9,9 @@ export const signUp = async (req: Request, res: Response) => {
     });
 
     if (employeeExist) {
-      return res.status(200).send({
+      return res.status(403).send({
         message: "User already exist",
-        success: true,
+        success: false,
         result: employeeExist,
       });
     } else {
@@ -53,16 +53,16 @@ export const login = async (req: Request, res: Response) => {
         accessToken: await createAccessTokenForAdmin(employeeExist._id),
       });
     } else {
-      return res.status(400).send({
-        message: "Failed to login",
-        success: true,
+      return res.status(401).send({
+        message: "Incorrect credentials",
+        success: false,
         result: employeeExist,
       });
     }
   } catch (err) {
     console.log(err);
     return res.status(500).send({
-      dsuccess: false,
+      success: false,
       message: "Failed",
       error: err,
     });
