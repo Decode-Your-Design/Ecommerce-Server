@@ -68,6 +68,34 @@ export const login = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const changePassword = async (req: Request, res: Response) => {
+  try {
+    const { newPassword } = req.body;
+    const updatedUser = await UserModel.findByIdAndUpdate(req.body.user, {
+      password: newPassword,
+    });
+    if (updatedUser) {
+      return res.status(200).json({
+        message: "User password updated successfully",
+        result: updatedUser,
+        success: true,
+      });
+    } else {
+      return res.status(400).json({
+        message: "Failed to updated user password ",
+        success: false,
+      });
+    }
+  } catch (e) {
+    return res.status(200).json({
+      message: "Failed",
+      success: false,
+      error: e,
+    });
+  }
+};
+
 const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   let token = sign(
     { userId: userId, type: "ADMIN" },

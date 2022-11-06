@@ -67,7 +67,7 @@ export const fetchUserInfo = async (req: Request, res: Response) => {
 
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
-    const { _id } = req.body;
+    const { _id } = req.body.user;
     const updatedUser = await UserModel.findByIdAndUpdate(_id, { ...req.body });
     if (updatedUser) {
       return res.status(200).json({
