@@ -21,6 +21,6 @@ app.use("/users", userRoutes);
 app.use("/product", ProductRoutes);
 
 // /api/wishList
-app.use("/wishList", wishListRoutes);
+app.use("/wishlist", wishListRoutes);
 
 module.exports = app;

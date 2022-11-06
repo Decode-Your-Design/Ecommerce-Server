@@ -82,12 +82,24 @@ export const addToWishlist = async (req: any, res: Response) => {
     const productData = await ProductModel.findOne({
       _id: "636400830fc1b9d1cd7e1f98",
     });
-    console.log("yhid",productData)
+    console.log("yhid", productData);
     const userDetail = await UserModel.findByIdAndUpdate(req.body.user, {
-    $push:{ wishlist: productData},
+      $push: { wishlist: productData },
     });
-   
+
     console.log(userDetail);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export const getProfile = async (req: Request, res: Response) => {
+  try {
+    const data = UserModel.findById({ _id: "636536f6271ed2c3082a169d" });
+    console.log("this is data", data);
   } catch (error) {
     return res.status(500).json({
       success: false,

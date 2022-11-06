@@ -53,7 +53,7 @@ export const login = async (req: Request, res: Response) => {
         accessToken: await createAccessTokenForAdmin(employeeExist._id),
       });
     } else {
-      return res.status(401).send({
+      return res.status(200).send({
         message: "Incorrect credentials",
         success: false,
         result: employeeExist,
