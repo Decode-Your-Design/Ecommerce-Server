@@ -9,7 +9,7 @@ export class WishList extends Product {
   readonly createdAt: Date;
 
   @prop({ ref: () => User })
-  userId: Ref<User>;
+  user: Ref<User>;
 
   @prop({ ref: () => Product })
   product: Ref<Product>;

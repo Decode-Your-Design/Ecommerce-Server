@@ -8,7 +8,8 @@ import {
   addProduct,
   updateProductDetails,
   removeProduct,
-  getProductByType
+  getProductByType,
+  getVendorProducts
 } from "./product.controller";
 
 export const ProductRoutes: Router = express.Router();
@@ -24,7 +25,8 @@ ProductRoutes.post("/removeProduct/:productId",verifyJwtToken, removeProduct);
 
 ProductRoutes.get("/getProductByType/:vehicleType",getProductByType);
 
-// ProductRoutes.get("/getAllProducts", getAllProducts);
-// ProductRoutes.get("/getProductById/:productId", getProductById);
+ProductRoutes.get("/getAllProducts", getAllProducts);
+ProductRoutes.get("/getProductById/:productId/:userId", getProductById);
+ProductRoutes.get("/getVendorProducts",verifyJwtToken,getVendorProducts);
 // ProductRoutes.post("/addProduct", multer.single("image"), addProduct);
-// ProductRoutes.post("/updateProductDetails", updateProductDetails);
+ProductRoutes.post("/updateProductDetails", updateProductDetails);

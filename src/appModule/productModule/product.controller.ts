@@ -1,47 +1,79 @@
 import { Response, Request, NextFunction } from "express";
 import { rmSync } from "fs";
+import { JsonWebTokenError } from "jsonwebtoken";
 const fs = require("fs");
+import { verifyJwtToken } from "src/utils/middleware/verify-jwt-token";
+import { WishListModel } from "../wishListModule/wishList.model";
 import { ProductModel } from "./product.model";
 
-export const getAllProducts = async (req: Request, res: Response) => {
-  try {
-    const product = await ProductModel.find({});
-    if (product) {
-      return res.status(200).json({
-        result: product,
-        success: true,
-        status: 200,
-      });
-    } else {
-      return res.status(500).json({
-        success: false,
-      });
-    }
-  } catch (e) {
-    return res.status(200).json({
+
+export const getVendorProducts = async(req:Request,res:Response)=>{
+  try{
+const data = await ProductModel.find({vendor:req.body.user})
+console.log("this is data",data)
+if(data){
+  return res.status(200).json({
+    message:"Product fetched successfully",
+    result: data,
+    success: true,
+  });
+}
+else{
+  return res.status(403).json({
+message:"Unable to fetch products",
+    success: true,
+  });
+}
+  }
+  catch (e) {
+    return res.status(500).json({
       success: false,
       error: e,
     });
   }
-};
-
+}
 export const getProductById = async (req: Request, res: Response) => {
-  const { productId } = req.params;
+  const { productId,userId } = req.params;
+  console.log("this is user id",typeof userId,productId)
+  
+
+
+  
   try {
+    
     const product = await ProductModel.find({ _id: productId });
     if (product) {
+      if(userId!==null && userId!=='null'){
+        const inWishlist = await WishListModel.findOne({$and:[{product:productId} , {user:userId}]})
+          if(inWishlist){
+          return res.status(200).json({
+            inWishlist:true,
+            result: product[0],
+            success: true,
+          });
+        }
+        else{
+          return res.status(200).json({
+            inWishlist:false,
+            result: product[0],
+            success: true,
+          });
+        }
+      }
+      else{
       return res.status(200).json({
-        result: product,
+        inWishlist:false,
+        result: product[0],
         success: true,
-        status: 200,
       });
+    }
     } else {
-      return res.status(500).json({
+      return res.status(403).json({
         success: false,
       });
     }
   } catch (e) {
-    return res.status(200).json({
+    return res.status(500).json({
       success: false,
       error: e,
     });
@@ -132,6 +164,7 @@ export const getProductByType = async(req:Request,res:Response)=>{
   console.log(req.params)
   try{
     const data = await ProductModel.find({vehicleType:vehicleType});
+    console.log("this is data",data)
       return res.status(200).json({
         success:true,
         message:"product fetched successfully",
@@ -148,3 +181,26 @@ export const getProductByType = async(req:Request,res:Response)=>{
   }
   
 }
+
+
+export const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    const product = await ProductModel.find({});
+    if (product) {
+      return res.status(200).json({
+        result: product,
+        success: true,
+        status: 200,
+      });
+    } else {
+      return res.status(500).json({
+        success: false,
+      });
+    }
+  } catch (e) {
+    return res.status(200).json({
+      success: false,
+      error: e,
+    });
+  }
+};
