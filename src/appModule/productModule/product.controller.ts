@@ -41,7 +41,7 @@ export const getProductById = async (req: Request, res: Response) => {
   
   try {
     
-    const product = await ProductModel.find({ _id: productId });
+    const product = await ProductModel.find({ _id: productId }).populate('vendor')  ;
     if (product) {
       if(userId!==null && userId!=='null'){
         const inWishlist = await WishListModel.findOne({$and:[{product:productId} , {user:userId}]})
@@ -180,6 +180,51 @@ export const getProductByType = async(req:Request,res:Response)=>{
     })
   }
   
+}
+
+export const dealsOfTheWeek = async(req:Request,res:Response)=>{
+  try{
+    // console.log("sdffdgf",50/12)
+    const products = await ProductModel.find({})
+    console.log("this is length of produt",products.length)
+   const topMostProducts = products.filter((product)=>(
+product.price/product.offerPrice >=2
+    ))
+if(topMostProducts.length>0){
+  return res.status(200).json({
+    success:true,
+    message:"Product fetched successfully",
+    result:topMostProducts
+  })
+}
+  else {
+    const secondTopMostProducts = products.filter((product)=>(
+      product.price/product.offerPrice >=1.5
+          ))
+          if(secondTopMostProducts.length>0){
+            return res.status(200).json({
+              success:true,
+              message:"Product fetched successfully",
+              result:secondTopMostProducts
+            })
+  }
+  else{
+    return res.status(200).json({
+      success:true,
+      message:"Product fetched successfully",
+      result:products.slice(0,5)
+    })
+  }
+
+  }
+}
+  catch(err){
+    return res.status(500).json({
+      success:false,
+      message:"Internal server error",
+
+    })
+  }
 }
 
 

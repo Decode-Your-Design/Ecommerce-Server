@@ -40,10 +40,12 @@ export const addUser = async (req: any, res: Response) => {
 };
 
 export const fetchUserInfo = async (req: Request, res: Response) => {
+  console.log("dfsfdgn",req.body.user)
   try {
-    const userInfo = await UserModel.find({
-      user: req.body.user,
+    const userInfo = await UserModel.findOne({
+      _id: req.body.user,
     });
+    console.log("this is user info",userInfo)
     if (userInfo) {
       return res.status(200).json({
         message: "User information fetched successfully",
@@ -67,8 +69,12 @@ export const fetchUserInfo = async (req: Request, res: Response) => {
 
 export const updateUserInfo = async (req: Request, res: Response) => {
   try {
+    console.log("this is req",req.body)
     const { _id } = req.body.user;
-    const updatedUser = await UserModel.findByIdAndUpdate(_id, { ...req.body });
+    const data = new UserModel(req.body)
+    console.log("this si datya",data)
+    const updatedUser = await UserModel.findOneAndUpdate({_id:req.body.user}, data );
+    console.log("thsi is updated user",updatedUser)
     if (updatedUser) {
       return res.status(200).json({
         message: "User information updated successfully",
@@ -76,13 +82,15 @@ export const updateUserInfo = async (req: Request, res: Response) => {
         success: true,
       });
     } else {
+      
       return res.status(400).json({
         message: "Failed to updated user ",
         success: false,
       });
     }
   } catch (e) {
-    return res.status(200).json({
+    console.log("this is errro0",e.message)
+    return res.status(500).json({
       message: "Failed",
       success: false,
       error: e,

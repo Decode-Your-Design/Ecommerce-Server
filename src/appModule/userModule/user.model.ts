@@ -30,13 +30,10 @@ export class User {
   @prop({})
   address: string;
 
-  @prop({})
-  wishlist: [];
-
   @prop({ enum: userType })
   userType: userType;
 
-  @prop({default: false})
+  @prop({default: true})
   isActive:boolean
 }
 

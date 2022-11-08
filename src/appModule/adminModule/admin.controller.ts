@@ -31,7 +31,7 @@ export const removeVendor = async (req: Request, res: Response) => {
   try {
     const { vendorId } = req.params;
     const vendor = await UserModel.findByIdAndUpdate(vendorId, {
-      isActive: true,
+      isActive: false,
     });
     if (vendor) {
       return res.status(200).json({

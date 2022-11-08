@@ -9,7 +9,8 @@ import {
   updateProductDetails,
   removeProduct,
   getProductByType,
-  getVendorProducts
+  getVendorProducts,
+  dealsOfTheWeek
 } from "./product.controller";
 
 export const ProductRoutes: Router = express.Router();
@@ -30,3 +31,6 @@ ProductRoutes.get("/getProductById/:productId/:userId", getProductById);
 ProductRoutes.get("/getVendorProducts",verifyJwtToken,getVendorProducts);
 // ProductRoutes.post("/addProduct", multer.single("image"), addProduct);
 ProductRoutes.post("/updateProductDetails", updateProductDetails);
+ProductRoutes.get("/dealsOfTheWeek", dealsOfTheWeek);
+
+
