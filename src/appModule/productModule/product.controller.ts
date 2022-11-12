@@ -198,3 +198,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+// how to use image in frontend
+// <img src={`data:image/png;base64,${base64String}`} width="300"/>
