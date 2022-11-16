@@ -33,8 +33,11 @@ export class User {
   @prop({ enum: userType })
   userType: userType;
 
-  @prop({default: true})
-  isActive:boolean
+  @prop({ default: true })
+  isActive: boolean;
+
+  @prop()
+  chatRoomId: ObjectId;
 }
 
 export const UserModel = getModelForClass(User, {

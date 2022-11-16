@@ -9,7 +9,7 @@ export const signUp = async (req: Request, res: Response) => {
     });
 
     if (employeeExist) {
-      return res.status(403).send({
+      return res.status(200).send({
         message: "User already exist",
         success: false,
         result: employeeExist,
