@@ -7,7 +7,7 @@ export const contactAdmin = async (req: any, res: Response) => {
     const details = await ContactModel.create({ ...req.body });
     if (details) {
       return res.status(200).send({
-        message: "contact query created successfully",
+        message: "Request sent to admin successfully",
         success: true,
         result: details,
       });

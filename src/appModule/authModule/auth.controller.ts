@@ -39,6 +39,7 @@ export const signUp = async (req: Request, res: Response) => {
     });
   }
 };
+
 export const login = async (req: Request, res: Response) => {
   try {
     const employeeExist = await UserModel.findOne({
@@ -70,6 +71,7 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const changePassword = async (req: Request, res: Response) => {
+  console.log("this is",req.body)
   try {
     const { newPassword } = req.body;
     const updatedUser = await UserModel.findByIdAndUpdate(req.body.user, {

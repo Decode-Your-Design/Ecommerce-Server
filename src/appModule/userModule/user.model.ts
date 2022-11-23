@@ -24,7 +24,7 @@ export class User {
   @prop({ required: true })
   password: string;
 
-  // @prop({ required: true })
+  @prop({ })
   shopName: string;
 
   @prop({})

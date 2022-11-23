@@ -38,10 +38,29 @@ export class Product {
   offerPrice: number;
 
   @prop()
-  url: string;
-
+  frontImage: {
+    data: Buffer,
+    contentType: String,
+   
+  };
   @prop()
-  imagePath: string;
+  backImage: {
+    data: Buffer,
+    contentType: String,
+  
+  };
+  @prop()
+  leftImage: {
+    data: Buffer,
+    contentType: String,
+ 
+  };
+  @prop()
+  rightImage: {
+    data: Buffer,
+    contentType: String,
+    
+  }
 }
 
 export const ProductModel = getModelForClass(Product, {
