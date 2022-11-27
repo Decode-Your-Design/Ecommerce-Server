@@ -14,7 +14,7 @@ import {
 export const ProductRoutes: Router = express.Router();
 
 // /api/product/addProduct
-ProductRoutes.post("/addProduct", multer.single('image') , addProduct);
+ProductRoutes.post("/addProduct", multer.single('image'), verifyJwtToken , addProduct);
 
 // /api/product/updateProductDetails
 ProductRoutes.post(
@@ -31,5 +31,5 @@ ProductRoutes.get("/getProductByType/:vehicleType", getProductByType);
 ProductRoutes.get("/getAllProducts", getAllProducts);
 ProductRoutes.get("/getProductById/:productId/:userId", getProductById);
 ProductRoutes.get("/getVendorProducts", verifyJwtToken, getVendorProducts);
-// ProductRoutes.post("/addProduct", multer.single("image"), addProduct);
+ProductRoutes.post("/addProduct", multer.array("image",3), addProduct);
 ProductRoutes.post("/updateProductDetails", updateProductDetails);
