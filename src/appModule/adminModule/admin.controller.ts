@@ -62,7 +62,7 @@ export const changeRole = async (req: Request, res: Response) => {
     const employeeExist = await UserModel.findOneAndUpdate({
       phone: req.body.phone,
       password:req.body.password
-    },{userType:"Vendor"});
+    },req.body);
 
     console.log('this is user exist',employeeExist)
     if (employeeExist) {

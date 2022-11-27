@@ -3,11 +3,11 @@ import { ProductModel } from "../productModule/product.model";
 import { WishListModel } from "./wishList.model";
 
 export const addProduct = async (req: Request, res: Response) => {
-  console.log("this is req body", req.body);
+  // console.log("this is req body", req.body);
   try {
     const { productId } = req.params;
     const product = await ProductModel.findOne({ _id: productId });
-    console.log(product);
+    // console.log(product);
     const addedProduct = await (
       await WishListModel.create({
         product: product?._id,
@@ -66,7 +66,7 @@ export const removeProduct = async (req: Request, res: Response) => {
     const { productId } = req.params;
     // const inWishlist = await WishListModel.findOne({$and:[{product:productId} , {user:userId}]})
     const product = await WishListModel.findOneAndRemove({$and:[{product:productId},{user:req.body.user}]})
-    console.log("this is product",product)
+    // console.log("this is product",product)
     if (product) {
       return res.status(200).json({
         message: "Product removed successfully",
