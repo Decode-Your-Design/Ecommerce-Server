@@ -29,7 +29,7 @@ import { truncate } from "fs";
   
   app.use("/api", mainRoutes);
 
-  const port =  8000
+  const port =  8080
   // const port = process.env.PORT 
   try {
     app.listen(port, () =>
