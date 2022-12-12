@@ -29,10 +29,11 @@ import { truncate } from "fs";
   
   app.use("/api", mainRoutes);
 
-  const port = process.env.PORT || 8000;
+  const port =  8000
+  // const port = process.env.PORT 
   try {
     app.listen(port, () =>
-      console.log(`API server started at http://localhost:${port}`)
+      console.log(`API server started at http://68.183.246.158:8000`)
     );
   } catch (err) {
     console.log(err);
