@@ -35,6 +35,6 @@ ProductRoutes.get("/getProductById/:productId/:userId", getProductById);
 ProductRoutes.get("/getVendorProducts", verifyJwtToken, getVendorProducts);
 // ProductRoutes.post("/addProduct", multer.single("image"), addProduct);
 ProductRoutes.post("/updateProductDetails", updateProductDetails);
-ProductRoutes.get("/dealsOfTheWeek", dealsOfTheWeek);
+// ProductRoutes.get("/dealsOfTheWeek", dealsOfTheWeek);
 
 
