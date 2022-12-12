@@ -9,54 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = exports.User = exports.userType = void 0;
+exports.MessageModel = exports.Message = exports.userType = void 0;
 const typegoose_1 = require("@typegoose/typegoose");
 const mongodb_1 = require("mongodb");
+const chatRoom_model_1 = require("./chatRoom.model");
 var userType;
 (function (userType) {
     userType["ADMIN"] = "Admin";
     userType["VENDOR"] = "Vendor";
     userType["CUSTOMER"] = "Customer";
 })(userType = exports.userType || (exports.userType = {}));
-class User {
+class Message {
 }
 __decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", String)
-], User.prototype, "fullName", void 0);
-__decorate([
-    (0, typegoose_1.prop)(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ required: true }),
-    __metadata("design:type", String)
-], User.prototype, "phone", void 0);
-__decorate([
-    (0, typegoose_1.prop)({ required: true }),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
     (0, typegoose_1.prop)({}),
-    __metadata("design:type", String)
-], User.prototype, "shopName", void 0);
-__decorate([
-    (0, typegoose_1.prop)({}),
-    __metadata("design:type", String)
-], User.prototype, "address", void 0);
+    __metadata("design:type", mongodb_1.ObjectId)
+], Message.prototype, "sender", void 0);
 __decorate([
     (0, typegoose_1.prop)({ enum: userType }),
     __metadata("design:type", String)
-], User.prototype, "userType", void 0);
+], Message.prototype, "sentBy", void 0);
 __decorate([
-    (0, typegoose_1.prop)({ default: true }),
-    __metadata("design:type", Boolean)
-], User.prototype, "isActive", void 0);
+    (0, typegoose_1.prop)({ ref: () => chatRoom_model_1.ChatRoom }),
+    __metadata("design:type", Object)
+], Message.prototype, "chatRoom", void 0);
 __decorate([
     (0, typegoose_1.prop)(),
-    __metadata("design:type", mongodb_1.ObjectId)
-], User.prototype, "chatRoomId", void 0);
-exports.User = User;
-exports.UserModel = (0, typegoose_1.getModelForClass)(User, {
+    __metadata("design:type", String)
+], Message.prototype, "content", void 0);
+exports.Message = Message;
+exports.MessageModel = (0, typegoose_1.getModelForClass)(Message, {
     schemaOptions: { timestamps: true },
 });

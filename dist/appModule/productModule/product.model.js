@@ -54,8 +54,20 @@ __decorate([
 ], Product.prototype, "offerPrice", void 0);
 __decorate([
     (0, typegoose_1.prop)(),
-    __metadata("design:type", String)
-], Product.prototype, "url", void 0);
+    __metadata("design:type", Object)
+], Product.prototype, "frontImage", void 0);
+__decorate([
+    (0, typegoose_1.prop)(),
+    __metadata("design:type", Object)
+], Product.prototype, "backImage", void 0);
+__decorate([
+    (0, typegoose_1.prop)(),
+    __metadata("design:type", Object)
+], Product.prototype, "leftImage", void 0);
+__decorate([
+    (0, typegoose_1.prop)(),
+    __metadata("design:type", Object)
+], Product.prototype, "rightImage", void 0);
 exports.Product = Product;
 exports.ProductModel = (0, typegoose_1.getModelForClass)(Product, {
     schemaOptions: { timestamps: true },

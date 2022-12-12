@@ -20,7 +20,7 @@ const database_1 = __importDefault(require("./database/database"));
     const mainRoutes = require("./mainRoutes");
     const app = (0, express_1.default)();
     app.use((0, cors_1.default)());
-    app.use(express_1.default.urlencoded({ extended: false }));
+    app.use(express_1.default.urlencoded({ extended: true }));
     app.use(express_1.default.json({ limit: "5000mb" }));
     app.use(express_1.default.urlencoded({
         limit: "5000mb",
@@ -29,11 +29,11 @@ const database_1 = __importDefault(require("./database/database"));
     }));
     (0, database_1.default)();
     app.use("/api", mainRoutes);
-    const port = process.env.PORT || 8000;
+    const port = 8000;
     try {
-        app.listen(port, () => console.log(`API server started at http://localhost:${port}`));
+        app.listen(port, () => console.log(`API server started at http://68.183.246.158:8000`));
     }
     catch (err) {
-
+        console.log(err);
     }
 }))();

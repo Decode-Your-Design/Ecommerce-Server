@@ -4,11 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const admin_routes_1 = require("./appModule/adminModule/admin.routes");
 const auth_routes_1 = require("./appModule/authModule/auth.routes");
+const contact_routes_1 = require("./appModule/contactModule/contact.routes");
 const product_routes_1 = require("./appModule/productModule/product.routes");
 const user_routes_1 = require("./appModule/userModule/user.routes");
+const wishList_routes_1 = require("./appModule/wishListModule/wishList.routes");
 const app = (0, express_1.default)();
 app.use("/auth", auth_routes_1.AuthRoutes);
 app.use("/users", user_routes_1.userRoutes);
 app.use("/product", product_routes_1.ProductRoutes);
+app.use("/wishlist", wishList_routes_1.wishListRoutes);
+app.use("/admin", admin_routes_1.AdminRoutes);
+app.use("/contact", contact_routes_1.contactRoutes);
 module.exports = app;
