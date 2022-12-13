@@ -9,4 +9,5 @@ const verify_jwt_token_1 = require("../../utils/middleware/verify-jwt-token");
 const user_controller_1 = require("./user.controller");
 exports.userRoutes = express_1.default.Router();
 exports.userRoutes.post("/addUser", user_controller_1.addUser);
-exports.userRoutes.post("/addToWishList/:productId", verify_jwt_token_1.verifyJwtToken, user_controller_1.addToWishlist);
+exports.userRoutes.get("/fetchUserInfo", verify_jwt_token_1.verifyJwtToken, user_controller_1.fetchUserInfo);
+exports.userRoutes.post("/updateUserInfo", verify_jwt_token_1.verifyJwtToken, user_controller_1.updateUserInfo);

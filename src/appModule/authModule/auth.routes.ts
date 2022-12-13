@@ -5,7 +5,7 @@ import { verifyJwtToken } from "../../utils/middleware/verify-jwt-token";
 export const AuthRoutes: Router = express.Router();
 
 import { changePassword } from "./auth.controller";
-import { signUp, login,changeRole } from "./auth.controller";
+import { signUp, login } from "./auth.controller";
 
 // /api/auth/signUp
 AuthRoutes.post("/signUp", signUp);

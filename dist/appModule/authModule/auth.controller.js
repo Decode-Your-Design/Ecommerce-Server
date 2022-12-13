@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.signUp = void 0;
+exports.changePassword = exports.login = exports.signUp = void 0;
 const user_model_1 = require("../userModule/user.model");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,7 +20,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (employeeExist) {
             return res.status(200).send({
                 message: "User already exist",
-                success: true,
+                success: false,
                 result: employeeExist,
             });
         }
@@ -66,9 +66,9 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         else {
-            return res.status(400).send({
-                message: "Failed to login",
-                success: true,
+            return res.status(200).send({
+                message: "Incorrect credentials",
+                success: false,
                 result: employeeExist,
             });
         }
@@ -76,13 +76,43 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     catch (err) {
         console.log(err);
         return res.status(500).send({
-            dsuccess: false,
+            success: false,
             message: "Failed",
             error: err,
         });
     }
 });
 exports.login = login;
+const changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("this is", req.body);
+    try {
+        const { newPassword } = req.body;
+        const updatedUser = yield user_model_1.UserModel.findByIdAndUpdate(req.body.user, {
+            password: newPassword,
+        });
+        if (updatedUser) {
+            return res.status(200).json({
+                message: "User password updated successfully",
+                result: updatedUser,
+                success: true,
+            });
+        }
+        else {
+            return res.status(400).json({
+                message: "Failed to updated user password ",
+                success: false,
+            });
+        }
+    }
+    catch (e) {
+        return res.status(200).json({
+            message: "Failed",
+            success: false,
+            error: e,
+        });
+    }
+});
+exports.changePassword = changePassword;
 const createAccessTokenForAdmin = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     let token = (0, jsonwebtoken_1.sign)({ userId: userId, type: "ADMIN" }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "180d",
