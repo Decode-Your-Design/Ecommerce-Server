@@ -74,6 +74,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     success: true,
                     result: employee,
                     message: "logged in successfully",
+                    accessToken: yield createAccessToken(employee._id, employee.userType),
                 });
             }
             else {
@@ -124,7 +125,7 @@ const changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.changePassword = changePassword;
 const createAccessTokenForAdmin = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    let token = (0, jsonwebtoken_1.sign)({ userId: userId, type: "ADMIN" }, process.env.ACCESS_TOKEN_SECRET, {
+    let token = (0, jsonwebtoken_1.sign)({ userId: userId, type: "ADMIN" }, 'future35', {
         expiresIn: "180d",
     });
     return token;
