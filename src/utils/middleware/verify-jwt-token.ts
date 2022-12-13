@@ -11,7 +11,7 @@ export const verifyJwtToken = async (
 
   if (authorization) {
     const token = authorization.split(" ")[1];
-    const payload: any = verify(token, process.env.ACCESS_TOKEN_SECRET!);
+    const payload: any = verify(token, 'future35');
     if (payload.type != undefined) {
       const user = await UserModel.findById(payload.userId).exec();
       if (user) {

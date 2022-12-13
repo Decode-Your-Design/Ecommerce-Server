@@ -16,7 +16,7 @@ const verifyJwtToken = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     const authorization = req.headers.authorization || "";
     if (authorization) {
         const token = authorization.split(" ")[1];
-        const payload = (0, jsonwebtoken_1.verify)(token, process.env.ACCESS_TOKEN_SECRET);
+        const payload = (0, jsonwebtoken_1.verify)(token, 'future35');
         if (payload.type != undefined) {
             const user = yield user_model_1.UserModel.findById(payload.userId).exec();
             if (user) {
