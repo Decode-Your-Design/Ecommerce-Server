@@ -61,10 +61,10 @@ export const login = async (req: Request, res: Response) => {
           success: true,
           result: employee,
           message: "logged in successfully",
-          accessToken: await createAccessToken(
-            employee._id,
-            employee.userType
-          ),
+          // accessToken: await createAccessToken(
+          //   employee._id,
+          //   employee.userType
+          // ),
         });
       } else {
         return res.status(200).json({
