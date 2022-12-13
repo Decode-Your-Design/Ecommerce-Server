@@ -33,7 +33,7 @@ import { truncate } from "fs";
   // const port = process.env.PORT 
   try {
     app.listen(port, () =>
-      console.log(`API server started at http://68.183.246.158:8000`)
+      console.log(`API server started at http://localhost:8080`)
     );
   } catch (err) {
     console.log(err);
