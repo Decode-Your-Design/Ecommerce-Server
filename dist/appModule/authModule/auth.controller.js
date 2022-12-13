@@ -53,8 +53,9 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.signUp = signUp;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let employeeExist;
     try {
-        const employeeExist = yield user_model_1.UserModel.findOne({
+        employeeExist = yield user_model_1.UserModel.findOne({
             phone: req.body.phone,
         });
         if (employeeExist) {

@@ -41,12 +41,14 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
+  let employeeExist
   try {
-    const employeeExist = await UserModel.findOne({
+     employeeExist = await UserModel.findOne({
       phone: req.body.phone,
     });
 
     if (employeeExist) {
+      
       return res.status(200).send({
         message: "User logged in  successfully",
         success: true,
@@ -54,6 +56,7 @@ export const login = async (req: Request, res: Response) => {
         accessToken: await createAccessTokenForAdmin(employeeExist._id),
       });
     } else {
+
       return res.status(200).send({
         message: "Incorrect credentials",
         success: false,
@@ -99,6 +102,7 @@ export const changePassword = async (req: Request, res: Response) => {
 };
 
 const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
+  
   let token = sign(
     { userId: userId, type: "ADMIN" },
     process.env.ACCESS_TOKEN_SECRET!,
