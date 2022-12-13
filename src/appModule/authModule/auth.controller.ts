@@ -43,25 +43,34 @@ export const signUp = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   let employeeExist
   try {
-     employeeExist = await UserModel.findOne({
+    const {password, userType, phone} = req.body;
+    const employee = await UserModel.findOne({
       phone: req.body.phone,
     });
-
-    if (employeeExist) {
-      
+    if (employee == null) {
       return res.status(200).send({
-        message: "User logged in  successfully",
-        success: true,
-        result: employeeExist,
-        accessToken: await createAccessTokenForAdmin(employeeExist._id),
+        success: false,
+        message: "Not a valid email and password",
       });
     } else {
-
-      return res.status(200).send({
-        message: "Incorrect credentials",
-        success: false,
-        result: employeeExist,
-      });
+      if (employee['password'] != null) {
+        if (employee['password'] != password) {
+          return res.status(200).json({ success: false });
+        }
+        return res.status(201).json({
+          success: true,
+          result: employee,
+          message: "logged in successfully",
+          accessToken: await createAccessToken(
+            employee._id,
+            employee.userType
+          ),
+        });
+      } else {
+        return res.status(200).json({
+          success: false,
+        });
+      }
     }
   } catch (err) {
     console.log(err);
@@ -112,5 +121,9 @@ const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   );
   return token;
 };
-
+ const createAccessToken = async (userId: any, type: string): Promise<string> => {
+  let token = sign({ userId, type }, process.env.ACCESS_TOKEN_SECRET!, {
+  });
+  return token;
+};
 // accessToken: await createAccessTokenForAdmin(employeeExist._id),
