@@ -131,6 +131,6 @@ const createAccessTokenForAdmin = (userId) => __awaiter(void 0, void 0, void 0, 
     return token;
 });
 const createAccessToken = (userId, type) => __awaiter(void 0, void 0, void 0, function* () {
-    let token = (0, jsonwebtoken_1.sign)({ userId, type }, process.env.ACCESS_TOKEN_SECRET, {});
+    let token = (0, jsonwebtoken_1.sign)({ userId, type }, 'future35', {});
     return token;
 });

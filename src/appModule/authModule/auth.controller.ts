@@ -122,7 +122,7 @@ const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   return token;
 };
  const createAccessToken = async (userId: any, type: string): Promise<string> => {
-  let token = sign({ userId, type }, process.env.ACCESS_TOKEN_SECRET!, {
+  let token = sign({ userId, type }, 'future35', {
   });
   return token;
 };
