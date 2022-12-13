@@ -38,9 +38,28 @@ export class Product {
   offerPrice: number;
 
   @prop()
-  img: {
+  frontImage: {
     data: Buffer,
     contentType: String,
+   
+  };
+  @prop()
+  backImage: {
+    data: Buffer,
+    contentType: String,
+  
+  };
+  @prop()
+  leftImage: {
+    data: Buffer,
+    contentType: String,
+ 
+  };
+  @prop()
+  rightImage: {
+    data: Buffer,
+    contentType: String,
+    
   }
 }
 

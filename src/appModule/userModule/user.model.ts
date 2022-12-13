@@ -24,19 +24,16 @@ export class User {
   @prop({ required: true })
   password: string;
 
-  // @prop({ required: true })
+  @prop({ })
   shopName: string;
 
   @prop({})
   address: string;
 
-  @prop({})
-  wishlist: [];
-
   @prop({ enum: userType })
   userType: userType;
 
-  @prop({ default: false })
+  @prop({ default: true })
   isActive: boolean;
 
   @prop()

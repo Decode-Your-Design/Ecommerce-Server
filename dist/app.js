@@ -34,6 +34,6 @@ const database_1 = __importDefault(require("./database/database"));
         app.listen(port, () => console.log(`API server started at http://localhost:${port}`));
     }
     catch (err) {
-        console.log(err);
+
     }
 }))();

@@ -7,7 +7,7 @@ export const userRoutes: Router = express.Router();
 userRoutes.post("/addUser", addUser);
 
 // /api/users/fetchUserInfo
-userRoutes.post("/fetchUserInfo", verifyJwtToken, fetchUserInfo);
+userRoutes.get("/fetchUserInfo", verifyJwtToken, fetchUserInfo);
 
 // /api/users/updateUserInfo
 userRoutes.post("/updateUserInfo", verifyJwtToken, updateUserInfo);

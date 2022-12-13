@@ -7,8 +7,8 @@ export const contactAdmin = async (req: any, res: Response) => {
     const details = await ContactModel.create({ ...req.body });
     if (details) {
       return res.status(200).send({
-        message: "contact query created successfully",
-        success: false,
+        message: "Request sent to admin successfully",
+        success: true,
         result: details,
       });
     } else {
@@ -33,11 +33,11 @@ export const getContactQuery = async (req: any, res: Response) => {
     if (details) {
       return res.status(200).send({
         message: "contact query fetched successfully",
-        success: false,
+        success: true,
         result: details,
       });
     } else {
-      return res.status(200).send({
+      return res.status(403).send({
         message: "Failed to fetched ",
         success: false,
       });

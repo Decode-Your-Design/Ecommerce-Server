@@ -9,7 +9,7 @@ import { ProductModel } from "./product.model";
 export const getVendorProducts = async (req: Request, res: Response) => {
   try {
     const data = await ProductModel.find({ vendor: req.body.user });
-    console.log("this is data", data);
+    // console.log("this is data", data);
     if (data) {
       return res.status(200).json({
         message: "Product fetched successfully",
@@ -19,7 +19,7 @@ export const getVendorProducts = async (req: Request, res: Response) => {
     } else {
       return res.status(403).json({
         message: "Unable to fetch products",
-        success: true,
+        success: false,
       });
     }
   } catch (e) {
@@ -31,10 +31,11 @@ export const getVendorProducts = async (req: Request, res: Response) => {
 };
 export const getProductById = async (req: Request, res: Response) => {
   const { productId, userId } = req.params;
-  console.log("this is user id", typeof userId, productId);
+  // console.log("this is user id", typeof userId, productId);
 
   try {
-    const product = await ProductModel.find({ _id: productId });
+    
+    const product = await ProductModel.find({ _id: productId }).populate('vendor')  ;
     if (product) {
       if (userId !== null && userId !== "null") {
         const inWishlist = await WishListModel.findOne({
@@ -74,14 +75,35 @@ export const getProductById = async (req: Request, res: Response) => {
 };
 
 export const addProduct = async (req: any, res: Response) => {
+  // console.log("this is request",req.file,req.body,req.files)
   try {
-    let img = {
-      data: fs.readFileSync("uploads/" + req.file.filename),
+    let frontImage = {
+      data: fs.readFileSync("uploads/" + req.files[0].filename),
       contentType: "image/png",
+ 
     };
+    let backImage = {
+      data: fs.readFileSync("uploads/" + req.files[1].filename),
+      contentType: "image/png",
+
+    };
+    let leftImage = {
+      data: fs.readFileSync("uploads/" + req.files[2].filename),
+      contentType: "image/png",
+    
+    };
+    let rightImage = {
+      data: fs.readFileSync("uploads/" + req.files[3].filename),
+      contentType: "image/png",
+
+    };
+    // console.log("this is image",img)
     const product = await ProductModel.create({
       ...req.body,
-      img:img,
+      frontImage:frontImage,
+      backImage:backImage,
+      leftImage:leftImage,
+      rightImage:rightImage,
       vendor: req.body.user,
     });
     
@@ -158,24 +180,74 @@ export const removeProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const getProductByType = async (req: Request, res: Response) => {
-  const { vehicleType } = req.params;
-  console.log(req.params);
-  try {
-    const data = await ProductModel.find({ vehicleType: vehicleType });
-    console.log("this is data", data);
-    return res.status(200).json({
-      success: true,
-      message: "product fetched successfully",
-      result: data,
-    });
-  } catch (error) {
+
+export const getProductByType = async(req:Request,res:Response)=>{
+  const {vehicleType} = req.params;
+  // console.log(req.params)
+  try{
+    const data = await ProductModel.find({vehicleType:vehicleType});
+    // console.log("this is data",data)
+      return res.status(200).json({
+        success:true,
+        message:"product fetched successfully",
+        result:data
+      })
+    
+  }
+  catch(error){
     return res.status(500).json({
       success: false,
       message: "Internal server error",
     });
   }
-};
+  
+}
+
+export const dealsOfTheWeek = async(req:Request,res:Response)=>{
+  try{
+    // console.log("sdffdgf",50/12)
+    const products = await ProductModel.find({})
+    // console.log("this is length of produt",products.length)
+   const topMostProducts = products.filter((product)=>(
+product.price/product.offerPrice >=2
+    ))
+if(topMostProducts.length>0){
+  return res.status(200).json({
+    success:true,
+    message:"Product fetched successfully",
+    result:topMostProducts
+  })
+}
+  else {
+    const secondTopMostProducts = products.filter((product)=>(
+      product.price/product.offerPrice >=1.5
+          ))
+          if(secondTopMostProducts.length>0){
+            return res.status(200).json({
+              success:true,
+              message:"Product fetched successfully",
+              result:secondTopMostProducts
+            })
+  }
+  else{
+    return res.status(200).json({
+      success:true,
+      message:"Product fetched successfully",
+      result:products.slice(0,5)
+    })
+  }
+
+  }
+}
+  catch(err){
+    return res.status(500).json({
+      success:false,
+      message:"Internal server error",
+
+    })
+  }
+}
+
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
