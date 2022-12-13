@@ -16,5 +16,6 @@ exports.ProductRoutes.get("/getProductByType/:vehicleType", product_controller_1
 exports.ProductRoutes.get("/getAllProducts", product_controller_1.getAllProducts);
 exports.ProductRoutes.get("/getProductById/:productId/:userId", product_controller_1.getProductById);
 exports.ProductRoutes.get("/getVendorProducts", verify_jwt_token_1.verifyJwtToken, product_controller_1.getVendorProducts);
+exports.ProductRoutes.post("/addProduct", upload_1.default.array("image", 3), product_controller_1.addProduct);
 exports.ProductRoutes.post("/updateProductDetails", product_controller_1.updateProductDetails);
 exports.ProductRoutes.get("/dealsOfTheWeek", product_controller_1.dealsOfTheWeek);

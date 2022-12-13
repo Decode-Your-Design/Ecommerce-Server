@@ -55,23 +55,32 @@ exports.signUp = signUp;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let employeeExist;
     try {
-        employeeExist = yield user_model_1.UserModel.findOne({
+        const { password, userType, phone } = req.body;
+        const employee = yield user_model_1.UserModel.findOne({
             phone: req.body.phone,
         });
-        if (employeeExist) {
+        if (employee == null) {
             return res.status(200).send({
-                message: "User logged in  successfully",
-                success: true,
-                result: employeeExist,
-                accessToken: yield createAccessTokenForAdmin(employeeExist._id),
+                success: false,
+                message: "Not a valid email and password",
             });
         }
         else {
-            return res.status(200).send({
-                message: "Incorrect credentials",
-                success: false,
-                result: employeeExist,
-            });
+            if (employee['password'] != null) {
+                if (employee['password'] != password) {
+                    return res.status(200).json({ success: false });
+                }
+                return res.status(201).json({
+                    success: true,
+                    result: employee,
+                    message: "logged in successfully",
+                });
+            }
+            else {
+                return res.status(200).json({
+                    success: false,
+                });
+            }
         }
     }
     catch (err) {
@@ -118,5 +127,9 @@ const createAccessTokenForAdmin = (userId) => __awaiter(void 0, void 0, void 0, 
     let token = (0, jsonwebtoken_1.sign)({ userId: userId, type: "ADMIN" }, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "180d",
     });
+    return token;
+});
+const createAccessToken = (userId, type) => __awaiter(void 0, void 0, void 0, function* () {
+    let token = (0, jsonwebtoken_1.sign)({ userId, type }, process.env.ACCESS_TOKEN_SECRET, {});
     return token;
 });
