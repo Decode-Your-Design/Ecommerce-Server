@@ -61,10 +61,10 @@ export const login = async (req: Request, res: Response) => {
           success: true,
           result: employee,
           message: "logged in successfully",
-          // accessToken: await createAccessToken(
-          //   employee._id,
-          //   employee.userType
-          // ),
+          accessToken: await createAccessToken(
+            employee._id,
+            employee.userType
+          ),
         });
       } else {
         return res.status(200).json({
@@ -114,7 +114,7 @@ const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   
   let token = sign(
     { userId: userId, type: "ADMIN" },
-    process.env.ACCESS_TOKEN_SECRET!,
+    'future35',
     {
       expiresIn: "180d",
     }
