@@ -41,6 +41,7 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
+  let employeeExist
   try {
     const {password, userType, phone} = req.body;
     const employee = await UserModel.findOne({
@@ -110,9 +111,10 @@ export const changePassword = async (req: Request, res: Response) => {
 };
 
 const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
+  
   let token = sign(
     { userId: userId, type: "ADMIN" },
-    process.env.ACCESS_TOKEN_SECRET!,
+    'future35',
     {
       expiresIn: "180d",
     }
@@ -120,7 +122,7 @@ const createAccessTokenForAdmin = async (userId: any): Promise<string> => {
   return token;
 };
  const createAccessToken = async (userId: any, type: string): Promise<string> => {
-  let token = sign({ userId, type }, process.env.ACCESS_TOKEN_SECRET!, {
+  let token = sign({ userId, type }, 'future35', {
   });
   return token;
 };

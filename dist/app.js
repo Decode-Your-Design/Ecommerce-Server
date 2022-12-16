@@ -31,7 +31,7 @@ const database_1 = __importDefault(require("./database/database"));
     app.use("/api", mainRoutes);
     const port = 8080;
     try {
-        app.listen(port, () => console.log(`API server started at http://68.183.246.158:8000`));
+        app.listen(port, () => console.log(`API server started at http://localhost:8080`));
     }
     catch (err) {
         console.log(err);
