@@ -9,5 +9,5 @@ export const AdminRoutes: Router = express.Router();
 AdminRoutes.get("/getAllVendor", verifyJwtToken, getAllVendor);
 
 // /api/admin/removeVendor
-AdminRoutes.get("/removeVendor/:vendorId", removeVendor);
+AdminRoutes.get("/removeVendor/:vendorId",verifyJwtToken, removeVendor);
 AdminRoutes.post("/changeRole", verifyJwtToken, changeRole);
