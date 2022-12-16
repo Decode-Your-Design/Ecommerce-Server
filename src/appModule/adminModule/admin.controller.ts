@@ -1,12 +1,15 @@
 import { Response, Request, NextFunction } from "express";
+import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
+import { ProductModel } from "../productModule/product.model";
 import { UserModel, userType } from "../userModule/user.model";
 
 export const getAllVendor = async (req: Request, res: Response) => {
   try {
     const vendors = await UserModel.find({
-      $and:  [{userType: userType.VENDOR} , {isActive:true}]
+      $and: [{ userType: userType.VENDOR }, { isActive: true }],
     });
-    console.log("this is vendors",vendors)
+    console.log("this is vendors", vendors);
     // ({ $and: [{ age: { $gt: 2 } }, { age: { $lte: 4 } }] }
     if (vendors) {
       return res.status(200).json({
@@ -32,13 +35,17 @@ export const getAllVendor = async (req: Request, res: Response) => {
 export const removeVendor = async (req: Request, res: Response) => {
   try {
     const { vendorId } = req.params;
-    const vendor = await UserModel.findByIdAndUpdate(vendorId, {
+    const Vendor = await UserModel.findByIdAndUpdate(vendorId, {
       isActive: false,
     });
-    if (vendor) {
+    const products = await ProductModel.find({vendor: vendorId});
+    products.forEach(async element => {
+      await ProductModel.findByIdAndRemove(element['_id'])
+    });
+    if (Vendor) {
       return res.status(200).json({
-        message: "vendor removed successfully",
-        result: vendor,
+        message: "Vendor removed successfully",
+        result: Vendor,
         success: true,
       });
     } else {
@@ -56,27 +63,28 @@ export const removeVendor = async (req: Request, res: Response) => {
   }
 };
 
-
 export const changeRole = async (req: Request, res: Response) => {
   try {
-    const employeeExist = await UserModel.findOneAndUpdate({
-      phone: req.body.phone,
-      password:req.body.password
-    },req.body);
+    const employeeExist = await UserModel.findOneAndUpdate(
+      {
+        phone: req.body.phone,
+        password: req.body.password,
+      },
+      req.body
+    );
 
-    console.log('this is user exist',employeeExist)
+    console.log("this is user exist", employeeExist);
     if (employeeExist) {
       return res.status(200).send({
         message: "Vendor Added Successfully",
         success: true,
       });
     } else {
-        return res.status(200).send({
-          message: "User does not exist",
-          success: false,
-        });
-      } 
-    
+      return res.status(200).send({
+        message: "User does not exist",
+        success: false,
+      });
+    }
   } catch (err) {
     console.log(err);
     return res.status(200).send({

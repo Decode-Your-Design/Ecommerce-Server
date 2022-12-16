@@ -6,7 +6,7 @@ import { addProduct, getWishlistProduct, removeProduct } from "./wishList.contro
 export const wishListRoutes: Router = express.Router();
 
 // /api/wishList/addProduct
-wishListRoutes.post("/addProductToWishlist/:productId", verifyJwtToken, addProduct);
+wishListRoutes.post("/addProductToWishlist/:productId", addProduct);
 
 // /api/wishList/getProduct
 wishListRoutes.get("/getWishlistProduct", verifyJwtToken, getWishlistProduct);

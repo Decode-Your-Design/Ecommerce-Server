@@ -19,6 +19,9 @@ export class Product {
   @prop({ ref: () => User })
   vendor: Ref<User>;
 
+  @prop({ default: true })
+  isActive: boolean;
+
   @prop()
   title: string;
 
